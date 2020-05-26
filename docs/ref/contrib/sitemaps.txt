@@ -345,7 +345,7 @@ the ``location`` method of the sitemap. For example::
 Creating a sitemap index
 ========================
 
-.. function:: views.index(request, sitemaps, template_name='sitemap_index.xml', content_type='application/xml', sitemap_url_name='django.contrib.sitemaps.views.sitemap')
+.. function:: views.index(request, sitemaps, template_name='sitemap_index.xml', content_type='application/xml', sitemap_url_name='django.contrib.sitemaps.views.sitemap', sitemap_url_args=tuple(), sitemap_url_kwargs={})
 
 The sitemap framework also has the ability to create a sitemap index that
 references individual sitemap files, one per each section defined in your
@@ -391,6 +391,8 @@ with a caching decorator -- you must name your sitemap view and pass
              {'sitemaps': sitemaps}, name='sitemaps'),
     ]
 
+If your section view requires additional arguments you can provide those with
+the ``sitemap_url_args`` or ``sitemap_url_kwargs`` parameter.
 
 Template customization
 ======================
