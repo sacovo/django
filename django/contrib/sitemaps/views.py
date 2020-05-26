@@ -22,7 +22,8 @@ def x_robots_tag(func):
 @x_robots_tag
 def index(request, sitemaps,
           template_name='sitemap_index.xml', content_type='application/xml',
-          sitemap_url_name='django.contrib.sitemaps.views.sitemap'):
+          sitemap_url_name='django.contrib.sitemaps.views.sitemap',
+          sitemap_url_args=tuple(), sitemap_url_kwargs={}):
 
     req_protocol = request.scheme
     req_site = get_current_site(request)
@@ -34,7 +35,8 @@ def index(request, sitemaps,
         if callable(site):
             site = site()
         protocol = req_protocol if site.protocol is None else site.protocol
-        sitemap_url = reverse(sitemap_url_name, kwargs={'section': section})
+        sitemap_url = reverse(sitemap_url_name, args=sitemap_url_args,
+                              kwargs={'section': section, **sitemap_url_kwargs})
         absolute_url = '%s://%s%s' % (protocol, req_site.domain, sitemap_url)
         sites.append(absolute_url)
         # Add links to all pages of the sitemap.
